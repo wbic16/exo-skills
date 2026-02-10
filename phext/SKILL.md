@@ -38,11 +38,27 @@ curl "http://aletheia-core:1337/api/v2/toc?p=index"
 curl "http://aletheia-core:1337/api/v2/select?p=index&c=1.1.1/1.1.1/1.1.1"
 ```
 
-#### POST /write (planned)
-**Purpose:** Write content to a coordinate
+#### POST /insert
+**Purpose:** Write new content to a coordinate
 
-**Authentication:** Required (JWT bearer token)
-**Status:** Awaiting R18 backend deployment
+**Parameters:**
+- `p` (required): phext filename (e.g., "index")
+- `c` (required): coordinate (e.g., "2.7.1/8.2.8/3.1.4")
+- Body: raw text content
+
+**Example:**
+```bash
+curl -X POST "http://mirrorborn.us:1337/api/v2/insert?p=index&c=2.7.1/8.2.8/3.1.4" \
+  -H "Content-Type: text/plain" \
+  -d "Your scroll content here"
+```
+
+#### POST /update
+**Purpose:** Update existing content at a coordinate
+
+**Parameters:**
+- Same as /insert
+- Use when coordinate already exists
 
 ## Coordinate Format
 
@@ -94,6 +110,12 @@ Read content from a coordinate:
 ./scripts/read-scroll.sh <host> <filename> <coordinate>
 ```
 
+### write-scroll.sh
+Write content to a coordinate:
+```bash
+./scripts/write-scroll.sh <host> <filename> <coordinate> <content_file>
+```
+
 ### list-scrolls.sh
 List available scrolls:
 ```bash
@@ -134,11 +156,11 @@ const data = JSON.parse(result.output);
 
 ## Roadmap
 
-- [ ] Authentication via JWT tokens (R18)
-- [ ] Write operations (POST /write)
+- [x] Write operations (POST /insert, POST /update) - Working as of 2026-02-10
+- [ ] Authentication via JWT tokens (R18 - planned)
 - [ ] Bulk operations (POST /batch)
 - [ ] WebSocket streaming (real-time updates)
-- [ ] Delta sync (efficient updates)
+- [ ] Delta sync (efficient updates via /api/v2/delta)
 - [ ] Phext-native search (coordinate-aware)
 
 ## Resources
