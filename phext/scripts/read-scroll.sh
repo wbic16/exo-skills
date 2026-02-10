@@ -19,5 +19,5 @@ URL="http://${HOST}/api/v2/select?p=${FILENAME}&c=${COORDINATE}"
 echo "Reading from: $URL" >&2
 echo "" >&2
 
-# Fetch and pretty-print JSON
-curl -s "$URL" | jq -r '.content // .error // .'
+# Fetch content (returns raw text, not JSON)
+curl -s "$URL"
