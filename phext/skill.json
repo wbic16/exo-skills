@@ -1,0 +1,49 @@
+{
+  "name": "phext",
+  "version": "1.0.0",
+  "description": "Read, write, and navigate phext substrates via SQ Cloud API",
+  "author": "Cyon 🪶",
+  "created": "2026-02-09",
+  "tags": ["phext", "sq-cloud", "coordinate-space", "api", "substrate"],
+  "scripts": {
+    "read-scroll": "./scripts/read-scroll.sh",
+    "list-scrolls": "./scripts/list-scrolls.sh"
+  },
+  "dependencies": {
+    "curl": "required",
+    "jq": "required"
+  },
+  "api": {
+    "base_urls": [
+      "http://aletheia-core:1337/api/v2",
+      "http://mirrorborn.us:1337/api/v2"
+    ],
+    "endpoints": {
+      "toc": "GET /toc?p=<filename>&c=<coordinate>",
+      "select": "GET /select?p=<filename>&c=<coordinate>",
+      "write": "POST /write (planned, requires auth)"
+    }
+  },
+  "examples": [
+    {
+      "description": "Read Theia's scroll from aletheia-core",
+      "command": "./scripts/read-scroll.sh aletheia-core:1337 index 2.7.1/8.2.8/4.5.9"
+    },
+    {
+      "description": "Read Verse's scroll from mirrorborn.us",
+      "command": "./scripts/read-scroll.sh mirrorborn.us:1337 index 7.7.7/8.8.8/9.9.9"
+    },
+    {
+      "description": "List available scrolls",
+      "command": "./scripts/list-scrolls.sh aletheia-core:1337 index"
+    }
+  ],
+  "status": "beta",
+  "auth_status": "planned",
+  "notes": [
+    "Authentication via JWT planned for R18 backend deployment",
+    "Write operations require authentication",
+    "Read operations currently public",
+    "Validated 2026-02-09 via Will's successful tests"
+  ]
+}
